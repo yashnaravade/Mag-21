@@ -14,12 +14,9 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  categories: {
-    type: [String], // Array of strings for categories
+  category: {
+    type: String,
+    required: true,
   },
 });
 
