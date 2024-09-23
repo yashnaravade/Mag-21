@@ -1,34 +1,28 @@
 import express from "express";
+import asyncHandler from "express-async-handler";
+import { protect } from "../middleware/authMiddleware.js";
 import Article from "../models/Article.js";
 
 const router = express.Router();
 
-// Create a new article
-router.post("/", async (req, res) => {
-  const { title, content, author, category } = req.body;
-  try {
-    const newArticle = new Article({ title, content, author, category });
-    await newArticle.save();
-    res.status(201).json(newArticle);
-  } catch (error) {
-    res.status(500).json({ message: "Error creating article" });
-  }
-});
+// Create a new article (Protected route)
+router.post(
+  "/",
+  protect,
+  asyncHandler(async (req, res) => {
+    const { title, content, author, category } = req.body;
 
-// Get all articles
-// router.get("/", async (req, res) => {
-//   try {
-//     const articles = await Article.find();
-//     res.status(200).json(articles);
-//   } catch (error) {
-//     res.status(500).json({ message: "Error fetching articles" });
-//   }
-// });
+    const newArticle = new Article({ title, content, author, category });
+    const savedArticle = await newArticle.save();
+
+    res.status(201).json(savedArticle);
+  })
+);
 
 // Get all articles or search articles
-
-router.get("/", async (req, res) => {
-  try {
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
     const { search, category } = req.query;
     let query = {};
 
@@ -46,23 +40,21 @@ router.get("/", async (req, res) => {
 
     const articles = await Article.find(query);
     res.status(200).json(articles);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching articles" });
-  }
-});
+  })
+);
 
 // Get a single article by ID
-router.get("/:id", async (req, res) => {
-  try {
+router.get(
+  "/:id",
+  asyncHandler(async (req, res) => {
     const article = await Article.findById(req.params.id);
+
     if (article) {
       res.status(200).json(article);
     } else {
       res.status(404).json({ message: "Article not found" });
     }
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching article" });
-  }
-});
+  })
+);
 
 export default router;

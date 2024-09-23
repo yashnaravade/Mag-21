@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import userRoutes from "./routes/userRoutes.js";
 
 import articleRoutes from "./routes/articleRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
@@ -20,6 +21,7 @@ app.use(express.json());
 
 app.use("/api/articles", articleRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/users", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Magazine API");
