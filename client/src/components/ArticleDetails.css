@@ -1,0 +1,13 @@
+.article-details {
+  padding: 20px;
+}
+
+.article-details h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.article-details p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}

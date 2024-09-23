@@ -1,0 +1,21 @@
+.category-list {
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.category-item {
+  font-size: 1.2rem;
+  padding: 5px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.category-item:hover {
+  color: #007bff;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-bottom: 15px;
+}
